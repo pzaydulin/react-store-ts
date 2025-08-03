@@ -1,21 +1,37 @@
 import "@app/App.css";
-import ExamplePopover from "@app/components/ExamplePopover";
-
-import { ThemeProvider } from "@app/components/ThemeContext";
-import { ThemeToggle } from "@app/components/ThemeToggle";
-import { Input } from "@base-ui-components/react";
+import LoginPage from "./pages/Login";
+import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
+import RequireAuth from "./quards/RequireAuth";
+import MasterLayout from "./shared/components/Layout";
+import ListProductsPage from "./pages/ListProducts";
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <ThemeToggle />
-      <div className="p-4 items-center flex flex-col gap-4">
-        <ExamplePopover />
-        <Input
-          placeholder="Name"
-          className="h-10 w-full max-w-64 rounded-md border border-border bg-muted pl-3.5 text-base focus:outline focus:outline-2 focus:-outline-offset-1 focus:outline-primary"
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/login"
+          element={
+            <RequireAuth>
+              <MasterLayout>
+                <LoginPage />
+              </MasterLayout>
+            </RequireAuth>
+          }
         />
-      </div>
-    </ThemeProvider>
+        <Route
+          path="/products"
+          element={
+            <RequireAuth>
+              <MasterLayout>
+                <ListProductsPage />
+              </MasterLayout>
+            </RequireAuth>
+          }
+        />
+        <Route path="/" element={<Navigate to="/products" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
