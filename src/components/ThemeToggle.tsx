@@ -1,4 +1,4 @@
-import { useTheme } from "@app/components/ThemeContext";
+import { useTheme } from "@app/core/contexts/ThemeContext";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +8,7 @@
   color-scheme: light dark;
 
   isolation: isolate;
+  --my-font: "Roboto", sans-serif;
 }
 
 :root {
@@ -56,5 +59,45 @@
 html,
 body,
 #root {
-  @apply bg-background text-foreground m-0 text-base h-full font-sans;
+  @apply bg-background text-foreground m-0 text-base h-full font-[family-name:var(--my-font)];
+}
+
+.cutoff-text {
+  --max-lines: 3;
+  --line-height: 1.4;
+
+  max-height: calc(var(--max-lines) * 1em * var(--line-height));
+  line-height: var(--line-height);
+
+  overflow: hidden;
+  position: relative;
+}
+
+.cutoff-text:has(+ .expand-btn:not(:checked))::before {
+  content: "";
+  position: absolute;
+  height: calc(1em * var(--line-height));
+  width: 100%;
+  bottom: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, hsl(var(--background)));
+}
+
+.expand-btn {
+  appearance: none;
+  margin-top: 1rem;
+}
+
+.expand-btn::before {
+  content: "▼ See more";
+  color: hsl(var(--foreground) / 0.8);
+  cursor: pointer;
+}
+
+.expand-btn:checked::before {
+  content: "▲ See less";
+}
+
+.cutoff-text:has(+ .expand-btn:checked) {
+  max-height: none;
 }

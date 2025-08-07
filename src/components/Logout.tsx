@@ -2,22 +2,22 @@ import { useNavigate } from "react-router-dom";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import ModalDialog from "@app/shared/components/ModalDialog";
 import { useState } from "react";
+import { useAuth } from "@app/core/contexts/AuthContext";
 
 export const LogOut: React.FC = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const { logout } = useAuth();
 
   return (
     <>
       <button onClick={() => setOpen(true)}>
         <LogoutOutlinedIcon />
       </button>
-
       <ModalDialog
         open={open}
         onOpenChange={setOpen}
         title="Confirm Logout"
-        description="Are you sure you want to log out?"
         buttonClose={{
           title: "Cancel",
           onClick: () => setOpen(false),
@@ -25,12 +25,14 @@ export const LogOut: React.FC = () => {
         buttonConfirm={{
           title: "Log out",
           onClick: () => {
-            localStorage.removeItem("token");
+            logout(); // Call logout from AuthContext
             setOpen(false);
             navigate("/login", { replace: true });
           },
         }}
-      />
+      >
+        Are you sure you want to log out?
+      </ModalDialog>
     </>
   );
 };

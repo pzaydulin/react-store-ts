@@ -4,6 +4,7 @@ import { z } from "zod";
 import { Field } from "@base-ui-components/react/field";
 import { Form } from "@base-ui-components/react/form";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "@app/core/contexts/AuthContext";
 
 const schema = z.object({
   name: z.string().min(4, "Name must be at least 4 characters long"),
@@ -18,6 +19,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as any)?.from?.pathname || "/login";
+  const { login } = useAuth();
 
   async function submitForm(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -38,8 +40,7 @@ export default function LoginForm() {
         password,
       });
 
-      console.log("Login success:", response.data);
-      localStorage.setItem("token", response.data.token);
+      login(response.data.token); // Call login from AuthContext
       navigate(from, { replace: true });
       // можно сделать навигацию или setUser state для сохранения пользователя
     } catch (error) {
@@ -97,7 +98,7 @@ export default function LoginForm() {
       {errors._form && (
         <div className="text-sm text-red-500">
           {errors._form.map((err, idx) => (
-            <p key={idx}>{err}</p>
+            <div key={idx}>{err}</div>
           ))}
         </div>
       )}
@@ -105,7 +106,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="items-center justify-center rounded-md text-sm font-medium  disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary_foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
+        className="inline-flex items-center justify-center rounded-md text-sm font-medium  disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary_foreground hover:bg-primary/80 active:bg-primary h-10 px-4 py-2 w-full"
       >
         {isLoading ? "Submitting..." : "Submit"}
       </button>
