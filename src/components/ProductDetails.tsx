@@ -1,4 +1,4 @@
-import { IProduct } from "@app/core/models/product.interface";
+import { IProduct } from "@app/core/models/product";
 import { formatCurrency } from "@app/shared/utils/currency";
 
 export default function ProductDetails(product: IProduct) {
@@ -6,9 +6,10 @@ export default function ProductDetails(product: IProduct) {
     <div className="flex flex-col lg:flex-row w-auto items-start p-6">
       <div className="flex-none mr-6">
         <img
+          loading="lazy"
           className="max-h-[calc(100vh-14rem)] max-w-[calc(100vw-8rem)]"
           src={product.image}
-          alt=""
+          alt={product.title}
         />
       </div>
       <div className="flex-auto">
@@ -174,7 +175,7 @@ export default function ProductDetails(product: IProduct) {
 
         <div className="text-xs mt-4">
           <div className="font-semibold text-base mb-2">Product details</div>
-          <p className="cutoff-text">{product.description}</p>
+          <div className="cutoff-text">{product.description}</div>
           <input type="checkbox" className="expand-btn" />
         </div>
 

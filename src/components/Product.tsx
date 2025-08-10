@@ -1,4 +1,4 @@
-import { IProduct } from "@app/core/models/product.interface";
+import { IProduct } from "@app/core/models/product";
 import { formatCurrency } from "@app/shared/utils/currency";
 
 export default function Product(
@@ -9,7 +9,12 @@ export default function Product(
       <div className="rounded-lg border border-border bg-secondary/30  p-6 shadow-sm ">
         <div className="h-56 w-full">
           <a role="button" onClick={product.onDetailsClick}>
-            <img className="mx-auto h-full" src={product.image} alt="" />
+            <img
+              loading="lazy"
+              className="mx-auto h-full"
+              src={product.image}
+              alt={product.title}
+            />
           </a>
         </div>
         <div className="pt-6">

@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import ListProductsPage from "@app/pages/ListProducts";
-import LoginPage from "@app/pages/Login";
 import RequireAuth from "@app/core/quards/RequireAuth";
 import MasterLayout from "@app/shared/components/Layout";
+import LoginPage from "@app/pages/Login";
+import ProductsListPage from "@app/pages/ProductsList";
 
 const AppRoutes = () => {
   return (
@@ -24,7 +24,7 @@ const AppRoutes = () => {
           element={
             <RequireAuth>
               <MasterLayout>
-                <ListProductsPage />
+                <ProductsListPage />
               </MasterLayout>
             </RequireAuth>
           }

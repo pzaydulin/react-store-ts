@@ -1,5 +1,4 @@
 import * as React from "react";
-import axios from "axios";
 import { z } from "zod";
 import { Field } from "@base-ui-components/react/field";
 import { Form } from "@base-ui-components/react/form";
@@ -12,14 +11,13 @@ const schema = z.object({
 });
 
 export default function LoginForm() {
+  const { login, isLoading, errorMsg } = useAuth();
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(false);
   const [errors, setErrors] = React.useState<Record<string, string[]>>({});
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as any)?.from?.pathname || "/login";
-  const { login } = useAuth();
 
   async function submitForm(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -33,32 +31,36 @@ export default function LoginForm() {
       };
     }
 
-    try {
-      setIsLoading(true);
-      const response = await axios.post("https://fakestoreapi.com/auth/login", {
-        username,
-        password,
-      });
+    await login({ username, password });
 
-      login(response.data.token); // Call login from AuthContext
-      navigate(from, { replace: true });
-      // можно сделать навигацию или setUser state для сохранения пользователя
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        return {
-          errors: {
-            _form: [error.response.data.message || "Invalid credentials"],
-          },
-        };
-      }
-      return {
-        errors: {
-          _form: ["An unexpected error occurred"],
-        },
-      };
-    } finally {
-      setIsLoading(false);
-    }
+    navigate(from, { replace: true });
+
+    // try {
+    //   // setIsLoading(true);
+    //   const response = await axios.post("https://fakestoreapi.com/auth/login", {
+    //     username,
+    //     password,
+    //   });
+
+    //   login(response.data.token); // Call login from AuthContext
+    //   navigate(from, { replace: true });
+    //   // можно сделать навигацию или setUser state для сохранения пользователя
+    // } catch (error) {
+    //   if (axios.isAxiosError(error) && error.response) {
+    //     return {
+    //       errors: {
+    //         _form: [error.response.data.message || "Invalid credentials"],
+    //       },
+    //     };
+    //   }
+    //   return {
+    //     errors: {
+    //       _form: ["An unexpected error occurred"],
+    //     },
+    //   };
+    // } finally {
+    //   // setIsLoading(false);
+    // }
 
     return { errors: {} };
   }
@@ -95,13 +97,7 @@ export default function LoginForm() {
       </Field.Root>
 
       {/* Общая ошибка формы */}
-      {errors._form && (
-        <div className="text-sm text-red-500">
-          {errors._form.map((err, idx) => (
-            <div key={idx}>{err}</div>
-          ))}
-        </div>
-      )}
+      {errorMsg && <div className="text-sm text-red-500">{errorMsg}</div>}
 
       <button
         type="submit"

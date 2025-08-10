@@ -8,8 +8,6 @@ import { useAuth } from "@app/core/contexts/AuthContext";
 const MasterLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const { isAuthenticated } = useAuth();
 
-  console.log("MasterLayout rendered isAuthenticated", isAuthenticated);
-
   return (
     <>
       <div className="flex flex-col min-h-screen">

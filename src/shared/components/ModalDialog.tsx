@@ -27,7 +27,11 @@ const ModalDialog: React.FC<ModalDialogProps> = ({
   buttonConfirm,
 }) => {
   return (
-    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+    <Dialog.Root
+      open={open}
+      onOpenChange={onOpenChange}
+      aria-describedby="dialog-description"
+    >
       <Dialog.Portal>
         <Dialog.Backdrop className="z-20 fixed inset-0 bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-70" />
         <Dialog.Popup
@@ -44,24 +48,27 @@ const ModalDialog: React.FC<ModalDialogProps> = ({
               {title}
             </Dialog.Title>
           )}
-          <Dialog.Description className="mb-6 text-sm text-muted-foreground">
+
+          {/* Dialog.Description не используется из-за ошибки --> в <p> не может быть вложен <div> */}
+          <div
+            id="dialog-description"
+            className="mb-6 text-sm text-muted-foreground"
+          >
             {children}
-          </Dialog.Description>
+          </div>
           <div className="flex justify-end gap-4">
             {iconClose ? (
               <Dialog.Close className="absolute top-2 right-2">
-                <button className="rounded-lg p-2 text-base opacity-50 hover:opacity-100 active:opacity-50">
+                <div className="rounded-lg p-2 text-base opacity-50 hover:opacity-100 active:opacity-50">
                   <CloseOutlinedIcon />
-                </button>
+                </div>
               </Dialog.Close>
             ) : (
-              <Dialog.Close>
-                <button
-                  onClick={buttonClose?.onClick}
-                  className="items-center justify-center rounded-md text-sm font-medium  disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary_foreground hover:bg-primary/90 h-10 px-4 py-2"
-                >
-                  {buttonClose?.title}
-                </button>
+              <Dialog.Close
+                onClick={buttonClose?.onClick}
+                className="items-center justify-center rounded-md text-sm font-medium  disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary_foreground hover:bg-primary/90 h-10 px-4 py-2"
+              >
+                {buttonClose?.title}
               </Dialog.Close>
             )}
 

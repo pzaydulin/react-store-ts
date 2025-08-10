@@ -1,8 +1,9 @@
+import { getAccessToken } from "@app/data-access/apiClient";
 import React, { PropsWithChildren } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 const RequireAuth: React.FC<PropsWithChildren> = ({ children }) => {
-  const token = localStorage.getItem("token");
+  const token = getAccessToken(); // Assuming this function retrieves the current auth token
   const location = useLocation();
 
   if (!token && location.pathname !== "/login") {
