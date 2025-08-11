@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@app/layout/*": ["src/shared/components/ui/layout/*"],
       "@app/*": ["src/*"]
     },
     "target": "es5",

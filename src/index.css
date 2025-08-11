@@ -6,7 +6,8 @@
 
 :root {
   color-scheme: light dark;
-
+  --test-font: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   isolation: isolate;
   --my-font: "Roboto", sans-serif;
 }
@@ -59,7 +60,11 @@
 html,
 body,
 #root {
-  @apply bg-background text-foreground m-0 text-base h-full font-[family-name:var(--my-font)];
+  @apply bg-background text-foreground m-0 text-base h-full font-[family-name:var(--test-font)];
+}
+
+svg {
+  pointer-events: none;
 }
 
 .cutoff-text {

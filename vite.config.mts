@@ -13,6 +13,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      "@app/layout": path.resolve(__dirname, "src/shared/components/ui/layout"),
       "@app": path.resolve(__dirname, "src"),
     },
   },
