@@ -6,28 +6,34 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 export enum NavigationPath {
   Home = "/",
   Products = "/products",
+  Categories = "/categories",
   Cart = "/cart",
   Account = "/account",
   Login = "/login",
 }
 
 export const navItems = [
-  { label: "Home", path: "/", icon: HomeIcon, no_auth: true },
+  {
+    label: "Home",
+    path: NavigationPath.Home,
+    icon: HomeIcon,
+    no_auth: true,
+  },
   {
     label: "Products",
-    path: "/products",
+    path: NavigationPath.Products,
     icon: StorefrontIcon,
     no_auth: true,
   },
   {
     label: "Categories",
-    path: "/categories",
+    path: NavigationPath.Categories,
     icon: CategoryIcon,
     no_auth: true,
   },
   {
     label: "Account",
-    path: "/account",
+    path: NavigationPath.Account,
     icon: AccountCircleIcon,
     no_auth: false,
   },

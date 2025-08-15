@@ -3,6 +3,7 @@ import HomePage from "@app/pages/Home";
 import ProductsListPage from "@app/pages/ProductsList";
 import LoginPage from "@app/pages/Login";
 import AccountPage from "@app/pages/Account";
+import CategoriesPage from "./pages/Categories";
 
 interface IRoutes {
   path: string;
@@ -17,6 +18,10 @@ export const publicRoutes: IRoutes[] = [
   {
     path: NavigationPath.Products,
     Component: ProductsListPage,
+  },
+  {
+    path: NavigationPath.Categories,
+    Component: CategoriesPage,
   },
   {
     path: NavigationPath.Login,
