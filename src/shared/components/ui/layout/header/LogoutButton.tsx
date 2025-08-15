@@ -3,8 +3,10 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import ModalDialog from "@app/shared/components/ModalDialog";
 import { useState } from "react";
 import { useAuth } from "@app/core/contexts/AuthContext";
+import { Navigation } from "@mui/icons-material";
+import { NavigationPath } from "@app/core/constants/navigation";
 
-export const LogOut: React.FC = () => {
+export const LogOutButton: React.FC = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const { logout } = useAuth();
@@ -30,7 +32,7 @@ export const LogOut: React.FC = () => {
           onClick: () => {
             logout(); // Call logout from AuthContext
             setOpen(false);
-            navigate("/login", { replace: true });
+            navigate(NavigationPath.Home);
           },
         }}
       >

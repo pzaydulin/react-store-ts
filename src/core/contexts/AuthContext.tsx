@@ -2,6 +2,7 @@ import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { IUser } from "@app/core/models/user";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import {
+  apiClient,
   clearTokens,
   getAccessToken,
   saveTokens,
@@ -10,6 +11,7 @@ import { apiAuth } from "@app/data-access/auth/apiAuth";
 import { jwtDecode } from "jwt-decode";
 import { ILoginCredentials } from "@app/data-access/auth/typesAuth";
 import axios from "axios";
+import { apiProduct } from "@app/data-access/product/apiProduct";
 
 interface JwtPayload {
   sub: string; // id пользователя
@@ -20,6 +22,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   token: string | null;
   user: IUser | null;
+  categories: string[] | [];
   isLoading: boolean;
   login: (credentials: ILoginCredentials) => Promise<void>;
   logout: () => void;
@@ -31,14 +34,20 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [token, setToken] = useState(getAccessToken());
-  const [userId, setUserId] = useState<string | null>(
-    token ? jwtDecode<JwtPayload>(token).sub : null
+  const [userId, setUserId] = useState<number | null>(
+    token ? Number(jwtDecode<JwtPayload>(token).sub) : null
   );
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined);
 
   const isAuthenticated = !!token;
 
   const queryClient = useQueryClient();
+
+  // request categories
+  const categories = useQuery<string[]>({
+    queryKey: ["categories"],
+    queryFn: () => apiProduct.getCategories(),
+  });
 
   // Запрос профиля через React Query
   const {
@@ -65,7 +74,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
       saveTokens(newToken); // установка токена в клиент
 
       const decoded = jwtDecode<JwtPayload>(newToken);
-      setUserId(decoded.sub);
+      setUserId(Number(decoded.sub));
 
       refetchProfile(); // грузим профиль сразу
     },
@@ -97,7 +106,8 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
         isAuthenticated,
         token,
         user: user ?? null,
-        isLoading,
+        categories: categories.data ?? [],
+        isLoading: isLoading || loginMutation.isPending || categories.isLoading,
         login,
         logout,
         refetchProfile,

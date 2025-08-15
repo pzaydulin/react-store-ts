@@ -11,7 +11,7 @@ export const apiAuth = {
   async logout() {
     clearTokens();
   },
-  async getProfile(id: string) {
+  async getProfile(id: number) {
     const res = await apiClient.get(apiEndpoint.USERS.DETAIL(id));
     return res.data;
   },

@@ -4,6 +4,7 @@ import { Field } from "@base-ui-components/react/field";
 import { Form } from "@base-ui-components/react/form";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@app/core/contexts/AuthContext";
+import { NavigationPath } from "@app/core/constants/navigation";
 
 const schema = z.object({
   name: z.string().min(4, "Name must be at least 4 characters long"),
@@ -17,7 +18,8 @@ export default function LoginForm() {
   const [errors, setErrors] = React.useState<Record<string, string[]>>({});
   const navigate = useNavigate();
   const location = useLocation();
-  const from = (location.state as any)?.from?.pathname || "/login";
+  const from =
+    (location.state as any)?.from?.pathname || NavigationPath.Products;
 
   async function submitForm(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -31,9 +33,13 @@ export default function LoginForm() {
       };
     }
 
-    await login({ username, password });
-
-    navigate(from, { replace: true });
+    try {
+      await login({ username, password });
+      navigate(from, { replace: true });
+      return { errors: {} };
+    } catch {
+      return { errors: {} };
+    }
 
     // try {
     //   // setIsLoading(true);
@@ -61,8 +67,6 @@ export default function LoginForm() {
     // } finally {
     //   // setIsLoading(false);
     // }
-
-    return { errors: {} };
   }
 
   return (
@@ -96,11 +100,10 @@ export default function LoginForm() {
         <Field.Error className="text-sm text-red-500" />
       </Field.Root>
 
-      {/* Общая ошибка формы */}
+      {/* Error from server */}
       {errorMsg && <div className="text-sm text-red-500">{errorMsg}</div>}
 
       <button
-        type="submit"
         disabled={isLoading}
         className="inline-flex items-center justify-center rounded-md text-sm font-medium  disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary_foreground hover:bg-primary/80 active:bg-primary h-10 px-4 py-2 w-full"
       >
@@ -109,5 +112,3 @@ export default function LoginForm() {
     </Form>
   );
 }
-
-// TODO проверить почему после ошибки от сервера, страница перезагружается

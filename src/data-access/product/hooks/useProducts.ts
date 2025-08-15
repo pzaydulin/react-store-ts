@@ -1,33 +1,59 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiProduct } from "@app/data-access/product/apiProduct";
+import { ProductResponseDTO } from "../typesProduct";
 
 export function useProducts() {
-  const queryClient = useQueryClient();
-
-  const productsQuery = useQuery({
+  return useQuery<ProductResponseDTO[]>({
     queryKey: ["products"],
     queryFn: apiProduct.getAll,
   });
+}
 
-  const getProduct = useMutation({
-    mutationFn: apiProduct.getById,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
+export function useProductsLimited(limit: number) {
+  return useQuery<ProductResponseDTO[]>({
+    queryKey: ["products", limit],
+    queryFn: () => apiProduct.getLimited(limit),
   });
+}
 
-  const createProduct = useMutation({
+export function useProductsSorted(order: "desc" | "asc") {
+  return useQuery<ProductResponseDTO[]>({
+    queryKey: ["products", "sorted", order],
+    queryFn: () => apiProduct.getSorted(order),
+  });
+}
+
+export function useProductsByCategory(category: string) {
+  console.log("useProductsByCategory:", category);
+
+  return useQuery<ProductResponseDTO[]>({
+    queryKey: ["products", "category", category],
+    queryFn: () => apiProduct.getByCategory(category),
+    enabled: !!category,
+  });
+}
+
+// CRUD mutation
+export function useCreateProduct() {
+  const queryClient = useQueryClient();
+  return useMutation({
     mutationFn: apiProduct.create,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
   });
+}
 
-  const deleteProduct = useMutation({
+export function useDeleteProduct() {
+  const queryClient = useQueryClient();
+  return useMutation({
     mutationFn: apiProduct.remove,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
   });
+}
 
-  return {
-    productsQuery,
-    getProduct,
-    createProduct,
-    deleteProduct,
-  };
+export function useGetProduct() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: apiProduct.getById,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
+  });
 }

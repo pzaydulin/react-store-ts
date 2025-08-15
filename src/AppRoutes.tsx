@@ -4,32 +4,39 @@ import RequireAuth from "@app/core/quards/RequireAuth";
 import MasterLayout from "@app/shared/components/ui/layout/Layout";
 import LoginPage from "@app/pages/Login";
 import ProductsListPage from "@app/pages/ProductsList";
+import { useAuth } from "@app/core/contexts/AuthContext";
+import { authRoutes, publicRoutes } from "./routes";
 
 const AppRoutes = () => {
+  const { isAuthenticated } = useAuth();
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/login"
-          element={
-            <RequireAuth>
+        {isAuthenticated &&
+          authRoutes.map(({ path, Component }) => (
+            <Route
+              key={path}
+              path={path}
+              element={
+                <RequireAuth>
+                  <MasterLayout>
+                    <Component />
+                  </MasterLayout>
+                </RequireAuth>
+              }
+            />
+          ))}
+        {publicRoutes.map(({ path, Component }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
               <MasterLayout>
-                <LoginPage />
+                <Component />
               </MasterLayout>
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/products"
-          element={
-            <RequireAuth>
-              <MasterLayout>
-                <ProductsListPage />
-              </MasterLayout>
-            </RequireAuth>
-          }
-        />
-        <Route path="/" element={<Navigate to="/products" replace />} />
+            }
+          />
+        ))}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

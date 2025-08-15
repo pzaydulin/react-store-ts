@@ -1,5 +1,6 @@
 import { IProduct } from "@app/core/models/product";
 import { formatCurrency } from "@app/shared/utils/currency";
+import { restoreOriginalImageUrl } from "@app/shared/utils/restoreOriginalImageUrl";
 
 export default function ProductDetails(product: IProduct) {
   return (
@@ -8,7 +9,7 @@ export default function ProductDetails(product: IProduct) {
         <img
           loading="lazy"
           className="max-h-[calc(100vh-14rem)] max-w-[calc(100vw-8rem)]"
-          src={product.image}
+          src={restoreOriginalImageUrl(product.image)}
           alt={product.title}
         />
       </div>

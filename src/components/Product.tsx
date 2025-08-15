@@ -1,5 +1,6 @@
 import { IProduct } from "@app/core/models/product";
 import { formatCurrency } from "@app/shared/utils/currency";
+import { restoreOriginalImageUrl } from "@app/shared/utils/restoreOriginalImageUrl";
 
 export default function Product(
   product: IProduct & { onDetailsClick: () => void }
@@ -12,7 +13,7 @@ export default function Product(
             <img
               loading="lazy"
               className="mx-auto h-full"
-              src={product.image}
+              src={restoreOriginalImageUrl(product.image)}
               alt={product.title}
             />
           </a>

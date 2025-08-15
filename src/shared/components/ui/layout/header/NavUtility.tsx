@@ -1,9 +1,10 @@
 import React from "react";
-import { LogOut } from "@app/layout/header/Logout";
+import { LogOutButton } from "@app/layout/header/LogoutButton";
 import { ThemeToggle } from "@app/layout/header/ThemeToggle";
 import { CartButton } from "@app/layout/header/CartButton";
 import MobileNav from "@app/layout/header/MobileNav";
 import { useAuth } from "@app/core/contexts/AuthContext";
+import LogInButton from "./LoginButton";
 
 const NavUtility: React.FC = () => {
   const { isAuthenticated } = useAuth();
@@ -14,14 +15,10 @@ const NavUtility: React.FC = () => {
       aria-label="Logout and theme toggle"
       className="flex items-center gap-2 transition"
     >
-      {isAuthenticated && <MobileNav />}
+      <MobileNav />
       <ThemeToggle />
-      {isAuthenticated && (
-        <>
-          <CartButton />
-          <LogOut />
-        </>
-      )}
+      <CartButton />
+      {isAuthenticated ? <LogOutButton /> : <LogInButton />}
     </div>
   );
 };

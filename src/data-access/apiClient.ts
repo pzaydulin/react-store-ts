@@ -1,4 +1,4 @@
-import { constants } from "@app/core/constants/apiEndpoints";
+import { apiEndpoint, constants } from "@app/core/constants/apiEndpoints";
 import { environment } from "@app/environments/environments";
 import axios from "axios";
 
@@ -31,6 +31,14 @@ const apiClient = axios.create({
   },
 });
 
+const isAuthEndpoint = (url?: string | null) => {
+  if (!url) return false;
+  return (
+    url === apiEndpoint.AUTH.LOGIN || url.includes("/auth/refresh")
+    // url.includes("/auth/refresh-token")
+  );
+};
+
 // Request Interceptor — adding Authorization header
 // This will add the access token to every request if it exists
 apiClient.interceptors.request.use((config) => {
@@ -48,8 +56,12 @@ apiClient.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // If the error is 401 and the request is not a retry, try to refresh the token
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    // If the error is not 401 and the request is not a retry, try to refresh the token
+    if (
+      error.response?.status !== 401 &&
+      !originalRequest._retry &&
+      !isAuthEndpoint(originalRequest.url)
+    ) {
       originalRequest._retry = true;
 
       try {
@@ -60,10 +72,9 @@ apiClient.interceptors.response.use(
           return Promise.reject(error);
         }
 
-        const res = await axios.post(
-          `${environment.apiUrl}/auth/refresh-token`,
-          { refreshToken: refresh }
-        );
+        const res = await axios.post(`${environment.apiUrl}/auth/refresh`, {
+          refreshToken: refresh,
+        });
 
         const newAccess = res.data.accessToken;
         saveTokens(newAccess, res.data.refreshToken);

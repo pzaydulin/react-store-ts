@@ -15,26 +15,48 @@ export const apiProduct = {
     return res.data;
   },
 
+  async getLimited(limit: number): Promise<ProductResponseDTO[]> {
+    const res = await apiClient.get(apiEndpoint.PRODUCTS.LIST_LIMIT(limit));
+    return res.data;
+    // axios .. { params: {limit: limit}}
+  },
+
+  async getSorted(sort: "asc" | "desc"): Promise<ProductResponseDTO[]> {
+    const res = await apiClient.get(apiEndpoint.PRODUCTS.LIST_SORT(sort));
+    return res.data;
+  },
+
   async create(data: IProduct): Promise<ProductResponseDTO> {
     const res = await apiClient.post(apiEndpoint.PRODUCTS.CREATE, data);
     return res.data;
   },
 
-  async getById(id: string | number): Promise<ProductResponseDTO> {
+  async getById(id: number): Promise<ProductResponseDTO> {
     const res = await apiClient.get(apiEndpoint.PRODUCTS.DETAIL(id));
     return res.data;
   },
 
-  async update(
-    id: string | number,
-    data: IProduct
-  ): Promise<ProductResponseDTO> {
+  async update(id: number, data: IProduct): Promise<ProductResponseDTO> {
     const res = await apiClient.put(apiEndpoint.PRODUCTS.UPDATE(id), data);
     return res.data;
   },
 
-  async remove(id: string | number): Promise<void> {
+  async remove(id: number): Promise<void> {
     const res = await apiClient.delete(apiEndpoint.PRODUCTS.DELETE(id));
+    return res.data;
+  },
+
+  async getCategories(): Promise<string[]> {
+    const res = await apiClient.get(apiEndpoint.PRODUCTS.CATEGORIES);
+    return res.data;
+  },
+
+  async getByCategory(ctg: string): Promise<ProductResponseDTO[]> {
+    console.log("ctg:", ctg);
+
+    const res = await apiClient.get(
+      apiEndpoint.PRODUCTS.CATEGORY(encodeURIComponent(ctg))
+    );
     return res.data;
   },
 };
