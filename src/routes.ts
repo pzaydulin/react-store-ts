@@ -24,6 +24,10 @@ export const publicRoutes: IRoutes[] = [
     Component: CategoriesPage,
   },
   {
+    path: NavigationPath.ProductsCategory,
+    Component: ProductsListPage,
+  },
+  {
     path: NavigationPath.Login,
     Component: LoginPage,
   },

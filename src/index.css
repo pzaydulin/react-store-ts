@@ -106,3 +106,7 @@ svg {
 .cutoff-text:has(+ .expand-btn:checked) {
   max-height: none;
 }
+
+p {
+  padding-bottom: 1rem;
+}

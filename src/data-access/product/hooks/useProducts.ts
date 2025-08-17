@@ -24,8 +24,6 @@ export function useProductsSorted(order: "desc" | "asc") {
 }
 
 export function useProductsByCategory(category: string) {
-  console.log("useProductsByCategory:", category);
-
   return useQuery<ProductResponseDTO[]>({
     queryKey: ["products", "category", category],
     queryFn: () => apiProduct.getByCategory(category),

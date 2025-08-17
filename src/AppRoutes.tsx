@@ -2,8 +2,6 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import RequireAuth from "@app/core/quards/RequireAuth";
 import MasterLayout from "@app/shared/components/ui/layout/Layout";
-import LoginPage from "@app/pages/Login";
-import ProductsListPage from "@app/pages/ProductsList";
 import { useAuth } from "@app/core/contexts/AuthContext";
 import { authRoutes, publicRoutes } from "./routes";
 

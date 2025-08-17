@@ -40,33 +40,6 @@ export default function LoginForm() {
     } catch {
       return { errors: {} };
     }
-
-    // try {
-    //   // setIsLoading(true);
-    //   const response = await axios.post("https://fakestoreapi.com/auth/login", {
-    //     username,
-    //     password,
-    //   });
-
-    //   login(response.data.token); // Call login from AuthContext
-    //   navigate(from, { replace: true });
-    //   // можно сделать навигацию или setUser state для сохранения пользователя
-    // } catch (error) {
-    //   if (axios.isAxiosError(error) && error.response) {
-    //     return {
-    //       errors: {
-    //         _form: [error.response.data.message || "Invalid credentials"],
-    //       },
-    //     };
-    //   }
-    //   return {
-    //     errors: {
-    //       _form: ["An unexpected error occurred"],
-    //     },
-    //   };
-    // } finally {
-    //   // setIsLoading(false);
-    // }
   }
 
   return (

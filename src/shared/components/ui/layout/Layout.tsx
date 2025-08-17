@@ -1,5 +1,3 @@
-import ExamplePopover from "@app/components/ExamplePopover";
-import { Input } from "@base-ui-components/react";
 import React, { PropsWithChildren } from "react";
 import { Header } from "@app/layout/header";
 
@@ -10,7 +8,9 @@ const MasterLayout: React.FC<PropsWithChildren> = ({ children }) => {
         <header className="z-10 py-4 flex sticky ml-4 mr-4 top-0 bg-background items-center justify-between">
           <Header />
         </header>
-        <main className="flex-1 p-5">{children}</main>
+        <div className="container mx-auto flex-1">
+          <main className="flex-1 p-5">{children}</main>
+        </div>
         {/* <footer className="py-4 flex sticky bottom-0 bg-background">
           <ExamplePopover />
           <Input

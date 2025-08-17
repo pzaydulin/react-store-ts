@@ -52,8 +52,6 @@ export const apiProduct = {
   },
 
   async getByCategory(ctg: string): Promise<ProductResponseDTO[]> {
-    console.log("ctg:", ctg);
-
     const res = await apiClient.get(
       apiEndpoint.PRODUCTS.CATEGORY(encodeURIComponent(ctg))
     );

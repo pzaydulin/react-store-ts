@@ -80,7 +80,6 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     },
     onError: (error: any) => {
       if (axios.isAxiosError(error) && error.response) {
-        console.log("Error:", error);
         setErrorMsg(error.response.data.message || "Invalid credentials");
       } else {
         setErrorMsg("An unexpected error occurred");

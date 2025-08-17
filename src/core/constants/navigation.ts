@@ -7,6 +7,7 @@ export enum NavigationPath {
   Home = "/",
   Products = "/products",
   Categories = "/categories",
+  ProductsCategory = "/products/category/:category",
   Cart = "/cart",
   Account = "/account",
   Login = "/login",

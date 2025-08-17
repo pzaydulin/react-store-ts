@@ -1,18 +1,21 @@
+import { NavigationPath } from "@app/core/constants/navigation";
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Logo: React.FC = () => {
   return (
-    <div className="flex gap-2 items-center">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="7.19444in"
-        height="6.38889in"
-        viewBox="0 0 518 460"
-        className="w-12 h-12"
-      >
-        <path
-          className="fill-primary stroke-primary stroke-[5]"
-          d="M 364.00,119.00
+    <NavLink to={NavigationPath.Home}>
+      <div className="flex gap-2 items-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="7.19444in"
+          height="6.38889in"
+          viewBox="0 0 518 460"
+          className="w-12 h-12"
+        >
+          <path
+            className="fill-primary stroke-primary stroke-[5]"
+            d="M 364.00,119.00
            C 364.00,119.00 450.00,119.00 450.00,119.00
              452.85,119.01 456.27,118.78 458.79,120.31
              464.04,123.51 466.26,139.75 467.86,146.01
@@ -115,14 +118,15 @@ const Logo: React.FC = () => {
              293.79,278.83 287.10,286.02 278.00,289.30
              253.22,298.24 229.28,294.38 210.00,276.00 Z
            M 382.00,-85.00"
-        />
-      </svg>
-      <div className="text-primary leading-[16px] text-lg font-bold">
-        <small>fake</small>
-        <br />
-        STORE
+          />
+        </svg>
+        <div className="text-primary leading-[16px] text-lg font-bold">
+          <small>fake</small>
+          <br />
+          STORE
+        </div>
       </div>
-    </div>
+    </NavLink>
   );
 };
 
