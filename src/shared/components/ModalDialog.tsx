@@ -52,35 +52,34 @@ const ModalDialog: React.FC<ModalDialogProps> = ({
           {/* Dialog.Description не используется из-за ошибки --> в <p> не может быть вложен <div> */}
           <div
             id="dialog-description"
-            className="mb-6 text-sm text-muted-foreground"
+            className="text-sm text-muted-foreground"
           >
             {children}
           </div>
-          <div className="flex justify-end gap-4">
-            {iconClose ? (
-              <Dialog.Close className="absolute top-2 right-2">
-                <div className="rounded-lg p-2 text-base opacity-50 hover:opacity-100 active:opacity-50">
-                  <CloseOutlinedIcon />
-                </div>
-              </Dialog.Close>
-            ) : (
+          {iconClose ? (
+            <Dialog.Close className="absolute top-2 right-2">
+              <div className="rounded-lg p-2 text-base opacity-50 hover:opacity-100 active:opacity-50">
+                <CloseOutlinedIcon />
+              </div>
+            </Dialog.Close>
+          ) : (
+            <div className="flex justify-end gap-4 mt-6">
               <Dialog.Close
                 onClick={buttonClose?.onClick}
                 className="items-center justify-center rounded-md text-sm font-medium  disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary_foreground hover:bg-primary/90 h-10 px-4 py-2"
               >
                 {buttonClose?.title}
               </Dialog.Close>
-            )}
-
-            {buttonConfirm && (
-              <button
-                onClick={buttonConfirm.onClick}
-                className="items-center justify-center rounded-md text-sm font-medium  disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary_foreground hover:bg-secondary/90 h-10 px-4 py-2"
-              >
-                {buttonConfirm.title}
-              </button>
-            )}
-          </div>
+              {buttonConfirm && (
+                <button
+                  onClick={buttonConfirm.onClick}
+                  className="items-center justify-center rounded-md text-sm font-medium  disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary_foreground hover:bg-secondary/90 h-10 px-4 py-2"
+                >
+                  {buttonConfirm.title}
+                </button>
+              )}
+            </div>
+          )}
         </Dialog.Popup>
       </Dialog.Portal>
     </Dialog.Root>

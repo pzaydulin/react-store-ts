@@ -17,7 +17,7 @@ const NavMain: React.FC = () => {
             className={({ isActive }) =>
               `flex items-center gap-2 ${
                 isActive
-                  ? "text-primary border-b-2 border-primary pb-1"
+                  ? "text-primary border-b-2 -mb-[5px] border-primary pb-1"
                   : "hover:text-muted_foreground active:text-primary transition"
               }`
             }

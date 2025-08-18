@@ -4,7 +4,10 @@ import { NavLink } from "react-router-dom";
 const HomePage: React.FC = () => {
   return (
     <>
-      <section className="flex flex-col gap-6 items-center lg:flex-row  min-h-[calc(100vh-200px)] justify-center p-4">
+      <section
+        id="home"
+        className="flex flex-col gap-6 items-center lg:flex-row  min-h-[calc(100vh-200px)] justify-center p-4"
+      >
         <div className="flex-basis-1/2">
           <h1 className="text-primary text-2xl mb-6 font-semibold leading-none tracking-tight">
             Welcome to Fake Store
@@ -16,9 +19,12 @@ const HomePage: React.FC = () => {
           </p>
           <p>
             Powered by the{" "}
-            <strong>
-              <a href="https://fakestoreapi.com/">Fake Store API</a>
-            </strong>
+            <a
+              className="font-semibold hover:underline "
+              href="https://fakestoreapi.com/"
+            >
+              Fake Store API
+            </a>
             , this project simulates a realistic shopping experience using live
             product data — including categories, prices, descriptions, and
             images — without the need for a backend setup.
