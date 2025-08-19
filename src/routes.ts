@@ -1,9 +1,10 @@
 import { NavigationPath } from "@app/core/constants/navigation";
 import HomePage from "@app/pages/Home";
-import ProductsListPage from "@app/pages/ProductsList";
 import LoginPage from "@app/pages/Login";
 import AccountPage from "@app/pages/Account";
-import CategoriesPage from "./pages/Categories";
+import CategoriesPage from "@app/pages/Categories";
+import ProductsPage from "@app/pages/Products";
+import ProductPage from "@app/pages/Product";
 
 interface IRoutes {
   path: string;
@@ -17,7 +18,7 @@ export const publicRoutes: IRoutes[] = [
   },
   {
     path: NavigationPath.Products,
-    Component: ProductsListPage,
+    Component: ProductsPage,
   },
   {
     path: NavigationPath.Categories,
@@ -25,7 +26,11 @@ export const publicRoutes: IRoutes[] = [
   },
   {
     path: NavigationPath.ProductsCategory,
-    Component: ProductsListPage,
+    Component: ProductsPage,
+  },
+  {
+    path: NavigationPath.Product,
+    Component: ProductPage,
   },
   {
     path: NavigationPath.Login,

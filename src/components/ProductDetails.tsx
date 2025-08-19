@@ -11,10 +11,10 @@ export default function ProductDetails(product: IProduct) {
 
   return (
     <div className="flex flex-col lg:flex-row w-auto items-start p-6">
-      <div className="flex-none mr-6 mb-4">
+      <div className="flex-none w-full lg:w-min mr-6 mb-4">
         <img
           loading="lazy"
-          className="max-h-[calc(100vh-14rem)] max-w-[calc(100vw-8rem)]"
+          className="mx-auto max-h-[calc(100vh-14rem)] max-w-[calc(100vw-8rem)]"
           src={restoreOriginalImageUrl(product.image)}
           alt={product.title}
         />
@@ -46,7 +46,7 @@ export default function ProductDetails(product: IProduct) {
                   />
                 </svg>
               </button>
-              <span className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded bg-muted px-2 py-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+              <span className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded bg-muted px-2 py-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity z-10">
                 Share this product
               </span>
             </div>
@@ -72,7 +72,7 @@ export default function ProductDetails(product: IProduct) {
                   />
                 </svg>
               </button>
-              <span className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded bg-muted px-2 py-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+              <span className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded bg-muted px-2 py-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity z-10">
                 Add to Favorites
               </span>
             </div>

@@ -6,6 +6,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 export enum NavigationPath {
   Home = "/",
   Products = "/products",
+  Product = "/products/:id",
   Categories = "/categories",
   ProductsCategory = "/products/category/:category",
   Cart = "/cart",

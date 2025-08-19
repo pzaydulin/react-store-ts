@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Product from "@app/components/Product";
-import ModalDialog from "@app/shared/components/ModalDialog";
+import ProductCard from "@app/components/ProductCard";
 import ProductDetails from "@app/components/ProductDetails";
+import ModalDialog from "@app/shared/components/ModalDialog";
 import { IProduct } from "@app/core/models/product";
 import {
   useProducts,
@@ -12,7 +12,7 @@ import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDown
 import { capitalizeFirstLetter } from "@app/shared/utils/capitalizeFirstLetter";
 import { useParams } from "react-router-dom";
 
-export default function ProductsListPage() {
+export default function ProductsPage() {
   const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
@@ -49,6 +49,12 @@ export default function ProductsListPage() {
 
   return (
     <>
+      <title>
+        {selectedCategory
+          ? capitalizeFirstLetter(selectedCategory)
+          : "Products"}
+      </title>
+
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-semibold leading-none tracking-tight">
           {selectedCategory
@@ -79,7 +85,7 @@ export default function ProductsListPage() {
       <div className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
         {products &&
           products.map((product) => (
-            <Product
+            <ProductCard
               key={product.id}
               {...product}
               onDetailsClick={() => {

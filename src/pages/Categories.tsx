@@ -6,6 +6,7 @@ const CategoriesPage: React.FC = () => {
   const { categories } = useAuth();
   return (
     <>
+      <title>Categories</title>
       {/* <h1 className="text-2xl mb-6 font-semibold leading-none tracking-tight">
         Categories
       </h1> */}

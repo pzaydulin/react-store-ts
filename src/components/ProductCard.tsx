@@ -2,7 +2,7 @@ import { IProduct } from "@app/core/models/product";
 import { formatCurrency } from "@app/shared/utils/currency";
 import { restoreOriginalImageUrl } from "@app/shared/utils/restoreOriginalImageUrl";
 
-export default function Product(
+export default function ProductCard(
   product: IProduct & { onDetailsClick: () => void }
 ) {
   return (

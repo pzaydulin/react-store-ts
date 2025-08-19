@@ -30,8 +30,8 @@ export const apiEndpoint = {
   AUTH: {
     LOGIN: `${env.apiUrl}/auth/login`,
   },
-};
+} as const;
 
 export const constants = {
   AUTH_DATA_KEY: "FAKESTORE_AUTH_DATA",
-};
+} as const;

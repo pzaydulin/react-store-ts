@@ -31,6 +31,16 @@ export function useProductsByCategory(category: string) {
   });
 }
 
+export function useGetProductById(id: number) {
+  console.log("useGetProductById called with id:", id);
+
+  return useQuery<ProductResponseDTO>({
+    queryKey: ["products", "product", id],
+    queryFn: () => apiProduct.getById(id),
+    enabled: !!id,
+  });
+}
+
 // CRUD mutation
 export function useCreateProduct() {
   const queryClient = useQueryClient();
@@ -44,14 +54,6 @@ export function useDeleteProduct() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: apiProduct.remove,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
-  });
-}
-
-export function useGetProduct() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: apiProduct.getById,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
   });
 }
