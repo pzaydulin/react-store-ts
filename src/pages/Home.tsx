@@ -1,15 +1,11 @@
+import { useDocumentTitle } from "@app/shared/hooks/useDocumentTitle";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
 const HomePage: React.FC = () => {
+  useDocumentTitle("Home");
   return (
     <>
-      <title>Fake Store</title>
-      <meta
-        name="description"
-        content="Fake Store is a demo e-commerce application built with ReactJS, showcasing a modern front-end architecture and dynamic data integration."
-      ></meta>
-
       <section
         id="home"
         className="flex flex-col gap-6 items-center lg:flex-row  min-h-[calc(100vh-200px)] justify-center p-4"

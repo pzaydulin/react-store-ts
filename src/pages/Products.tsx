@@ -11,6 +11,7 @@ import { useAuth } from "@app/core/contexts/AuthContext";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import { capitalizeFirstLetter } from "@app/shared/utils/capitalizeFirstLetter";
 import { useParams } from "react-router-dom";
+import { useDocumentTitle } from "@app/shared/hooks/useDocumentTitle";
 
 export default function ProductsPage() {
   const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
@@ -20,6 +21,10 @@ export default function ProductsPage() {
   const [open, setOpen] = useState(false);
 
   const { category: paramCategory } = useParams<{ category?: string }>();
+
+  useDocumentTitle(
+    selectedCategory ? capitalizeFirstLetter(selectedCategory) : "Products"
+  );
 
   useEffect(() => {
     if (paramCategory) {
@@ -49,12 +54,6 @@ export default function ProductsPage() {
 
   return (
     <>
-      <title>
-        {selectedCategory
-          ? capitalizeFirstLetter(selectedCategory)
-          : "Products"}
-      </title>
-
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-semibold leading-none tracking-tight">
           {selectedCategory

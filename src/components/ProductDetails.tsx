@@ -5,6 +5,7 @@ import { restoreOriginalImageUrl } from "@app/shared/utils/restoreOriginalImageU
 import { useState } from "react";
 import { ShareProductLink } from "./ShareProductLink";
 import { NavigationPath } from "@app/core/constants/navigation";
+import ToolTip from "@app/shared/components/ToolTip";
 
 export default function ProductDetails(product: IProduct) {
   const [openModal, setModalOpen] = useState(false);
@@ -29,7 +30,7 @@ export default function ProductDetails(product: IProduct) {
           </span>
 
           <div className="flex items-center justify-end gap-1">
-            <div className="relative group inline-block">
+            <ToolTip text="Share this product">
               <button
                 onClick={() => setModalOpen(true)}
                 className="rounded-lg p-2 text-base opacity-50 hover:opacity-100 active:opacity-50"
@@ -46,11 +47,8 @@ export default function ProductDetails(product: IProduct) {
                   />
                 </svg>
               </button>
-              <span className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded bg-muted px-2 py-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                Share this product
-              </span>
-            </div>
-            <div className="relative group inline-block">
+            </ToolTip>
+            <ToolTip text="Add to Favorites">
               <button
                 type="button"
                 data-tooltip-target="tooltip-add-to-favorites"
@@ -72,10 +70,7 @@ export default function ProductDetails(product: IProduct) {
                   />
                 </svg>
               </button>
-              <span className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded bg-muted px-2 py-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                Add to Favorites
-              </span>
-            </div>
+            </ToolTip>
           </div>
         </div>
 

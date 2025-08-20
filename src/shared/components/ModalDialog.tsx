@@ -41,7 +41,7 @@ const ModalDialog: React.FC<ModalDialogProps> = ({
             rounded-lg bg-card p-6 outline outline-1 outline-secondary 
             transition-all duration-150 data-[ending-style]:scale-90 
             data-[ending-style]:opacity-0 data-[starting-style]:scale-90 
-            data-[starting-style]:opacity-0"
+            data-[starting-style]:opacity-0 shadow-black/40 shadow-lg"
         >
           {title && (
             <Dialog.Title className="-mt-1.5 mb-1 text-lg font-medium">

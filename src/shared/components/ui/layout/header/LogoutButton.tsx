@@ -3,8 +3,8 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import ModalDialog from "@app/shared/components/ModalDialog";
 import { useState } from "react";
 import { useAuth } from "@app/core/contexts/AuthContext";
-import { Navigation } from "@mui/icons-material";
 import { NavigationPath } from "@app/core/constants/navigation";
+import ToolTip from "@app/shared/components/ToolTip";
 
 export const LogOutButton: React.FC = () => {
   const navigate = useNavigate();
@@ -13,12 +13,14 @@ export const LogOutButton: React.FC = () => {
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className="hover:text-muted_foreground active:text-primary"
-      >
-        <LogoutOutlinedIcon />
-      </button>
+      <ToolTip text="Log Out">
+        <button
+          onClick={() => setOpen(true)}
+          className="hover:text-muted_foreground active:text-primary"
+        >
+          <LogoutOutlinedIcon />
+        </button>
+      </ToolTip>
       <ModalDialog
         open={open}
         onOpenChange={setOpen}

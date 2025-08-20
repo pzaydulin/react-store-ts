@@ -1,12 +1,13 @@
 import React from "react";
 import CategoryCard from "@app/components/Category";
 import { useAuth } from "@app/core/contexts/AuthContext";
+import { useDocumentTitle } from "@app/shared/hooks/useDocumentTitle";
 
 const CategoriesPage: React.FC = () => {
   const { categories } = useAuth();
+  useDocumentTitle("Categories");
   return (
     <>
-      <title>Categories</title>
       {/* <h1 className="text-2xl mb-6 font-semibold leading-none tracking-tight">
         Categories
       </h1> */}
