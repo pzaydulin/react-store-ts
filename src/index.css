@@ -62,7 +62,11 @@ body,
 #root {
   @apply bg-background text-foreground m-0 text-base h-full font-[family-name:var(--test-font)];
 }
-
+body {
+  min-height: 100vh;
+  overflow-x: hidden; /* Из-за того, что если tooltip по краю экрана, выводится x-scroll, поэтому скрыл*/
+  overflow-y: auto;
+}
 svg {
   pointer-events: none;
 }

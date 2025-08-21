@@ -1,69 +1,13 @@
-# React + TypeScript + Vite
+# Welcome to Fake Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Demo](./store-ts.gif)
 
-Currently, two official plugins are available:
+**Fake Store** is a demo e-commerce application built with **ReactJS**, showcasing a modern front-end architecture and dynamic data integration.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Powered by the **[Fake Store API](https://fakestoreapi.com)**, this project simulates a realistic shopping experience using live product data — including categories, prices, descriptions, and images — without the need for a backend setup.
 
-## Expanding the ESLint configuration
+Explore the store, inspect the code, and see how real-world UI logic comes together — all in one place.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The interface is optimized for both **desktop and mobile versions**. Additionally, it supports **light and dark themes**, automatically adapting to the system's default settings.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Uses: **\_React 19.1, Typescript 5.8, TailwindCSS 4, Base-UI 1.0.0-beta**

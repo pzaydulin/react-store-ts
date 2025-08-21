@@ -12,7 +12,6 @@ const LogInButton: React.FC = () => {
         <button
           className="hover:text-muted_foreground active:text-primary"
           onClick={() => navigate(NavigationPath.Login)}
-          title="LogIn"
         >
           <LoginOutlinedIcon />
         </button>
