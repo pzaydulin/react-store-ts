@@ -10,4 +10,4 @@ Explore the store, inspect the code, and see how real-world UI logic comes toget
 
 The interface is optimized for both **desktop and mobile versions**. Additionally, it supports **light and dark themes**, automatically adapting to the system's default settings.
 
-Uses: **\_React 19.1, Typescript 5.8, TailwindCSS 4, Base-UI 1.0.0-beta**
+Uses: **_React 19.1, Typescript 5.8, TailwindCSS 4, Base-UI 1.0.0-beta_**
