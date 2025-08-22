@@ -32,9 +32,7 @@ export const apiProduct = {
   },
 
   async getById(id: number): Promise<ProductResponseDTO> {
-    console.log("apiProduct getById res:", id);
     const res = await apiClient.get(apiEndpoint.PRODUCTS.DETAIL(id));
-
     return res.data;
   },
 

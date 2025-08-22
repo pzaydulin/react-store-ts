@@ -5,6 +5,7 @@ import AccountPage from "@app/pages/Account";
 import CategoriesPage from "@app/pages/Categories";
 import ProductsPage from "@app/pages/Products";
 import ProductPage from "@app/pages/Product";
+import CartPage from "./pages/Cart";
 
 interface IRoutes {
   path: string;
@@ -31,6 +32,10 @@ export const publicRoutes: IRoutes[] = [
   {
     path: NavigationPath.Product,
     Component: ProductPage,
+  },
+  {
+    path: NavigationPath.Cart,
+    Component: CartPage,
   },
   {
     path: NavigationPath.Login,

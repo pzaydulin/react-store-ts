@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { constants } from "@app/core/constants/apiEndpoints";
 
 type Theme = "light" | "dark";
 
@@ -17,7 +18,9 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
-    const savedTheme = localStorage.getItem("theme") as Theme;
+    const savedTheme = localStorage.getItem(
+      constants.AUTH_DATA_KEY + "_theme"
+    ) as Theme;
     return savedTheme
       ? savedTheme
       : window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -26,7 +29,7 @@ export const ThemeProvider: React.FC<PropsWithChildren> = ({ children }) => {
   });
 
   useEffect(() => {
-    localStorage.setItem("theme", theme);
+    localStorage.setItem(constants.AUTH_DATA_KEY + "_theme", theme);
     document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);
 

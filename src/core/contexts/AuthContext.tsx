@@ -1,8 +1,13 @@
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { IUser } from "@app/core/models/user";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import {
-  apiClient,
   clearTokens,
   getAccessToken,
   saveTokens,
@@ -38,7 +43,6 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     token ? Number(jwtDecode<JwtPayload>(token).sub) : null
   );
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined);
-
   const isAuthenticated = !!token;
 
   const queryClient = useQueryClient();
@@ -67,14 +71,15 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   const loginMutation = useMutation({
     mutationFn: apiAuth.login,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       const newToken = data.token;
       setToken(newToken);
 
       saveTokens(newToken); // установка токена в клиент
 
       const decoded = jwtDecode<JwtPayload>(newToken);
-      setUserId(Number(decoded.sub));
+      const newUserId = Number(decoded.sub);
+      setUserId(newUserId);
 
       refetchProfile(); // грузим профиль сразу
     },
@@ -99,6 +104,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     queryClient.removeQueries({ queryKey: ["auth", "profile"] });
   };
 
+  const addCart = async () => {};
   return (
     <AuthContext.Provider
       value={{
