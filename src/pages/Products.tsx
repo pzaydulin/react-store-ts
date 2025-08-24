@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ProductCard from "@app/components/ProductCard";
 import ProductDetails from "@app/components/ProductDetails";
 import ModalDialog from "@app/shared/components/ModalDialog";
@@ -42,12 +42,18 @@ export default function ProductsPage() {
     ? useProductsByCategory(selectedCategory)
     : useProducts();
 
-  const handleOpenModal = (product: IProduct) => {
-    setSelectedProduct(product);
-  };
-  const handleCloseModal = () => {
+  const handleOpenDetails = useCallback(
+    (id: number) => {
+      const product = products?.find((p) => p.id === id) ?? null;
+      setSelectedProduct(product);
+      setOpen(true);
+    },
+    [products]
+  );
+
+  const handleCloseModal = useCallback(() => {
     setSelectedProduct(null);
-  };
+  }, []);
 
   if (isLoading || isFetching) return <p>Loading...</p>;
   if (isError) return <p>Error: {error.message}</p>;
@@ -87,10 +93,7 @@ export default function ProductsPage() {
             <ProductCard
               key={product.id}
               {...product}
-              onDetailsClick={() => {
-                handleOpenModal(product);
-                setOpen(true);
-              }}
+              onDetailsClick={handleOpenDetails}
             />
           ))}
       </div>

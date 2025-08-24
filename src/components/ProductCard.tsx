@@ -1,18 +1,19 @@
-import { useCart } from "@app/core/contexts/CartContext";
+import { useCartActions } from "@app/core/contexts/CartContext";
 import { IProduct } from "@app/core/models/product";
 import { formatCurrency } from "@app/shared/utils/currency";
 import { restoreOriginalImageUrl } from "@app/shared/utils/restoreOriginalImageUrl";
+import { memo } from "react";
 
-export default function ProductCard(
-  product: IProduct & { onDetailsClick: () => void }
+function ProductCard(
+  product: IProduct & { onDetailsClick: (id: number) => void }
 ) {
-  const { addToCart } = useCart();
+  const { addToCart } = useCartActions();
 
   return (
     <>
       <div className="rounded-lg border border-border bg-secondary/30  p-6 shadow-sm ">
         <div className="h-56 w-full">
-          <a role="button" onClick={product.onDetailsClick}>
+          <a role="button" onClick={() => product.onDetailsClick(product.id)}>
             <img
               loading="lazy"
               className="mx-auto h-full"
@@ -83,7 +84,7 @@ export default function ProductCard(
 
           <a
             role="button"
-            onClick={product.onDetailsClick}
+            onClick={() => product.onDetailsClick(product.id)}
             className="text-lg font-semibold leading-tight hover:underline "
           >
             {product.title}
@@ -222,3 +223,5 @@ export default function ProductCard(
     </>
   );
 }
+
+export default memo(ProductCard);

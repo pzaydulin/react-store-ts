@@ -86,4 +86,4 @@ const ModalDialog: React.FC<ModalDialogProps> = ({
   );
 };
 
-export default ModalDialog;
+export default React.memo(ModalDialog);

@@ -1,8 +1,7 @@
-import { useCart } from "@app/core/contexts/CartContext";
-import React, { useMemo } from "react";
+import { useCartState } from "@app/core/contexts/CartContext";
 
 const CartBadge: React.FC = () => {
-  const { cart } = useCart();
+  const cart = useCartState();
 
   return (
     <>

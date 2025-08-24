@@ -2,12 +2,12 @@ import { IProduct } from "@app/core/models/product";
 import ModalDialog from "@app/shared/components/ModalDialog";
 import { formatCurrency } from "@app/shared/utils/currency";
 import { restoreOriginalImageUrl } from "@app/shared/utils/restoreOriginalImageUrl";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ShareProductLink } from "./ShareProductLink";
 import { NavigationPath } from "@app/core/constants/navigation";
 import ToolTip from "@app/shared/components/ToolTip";
 
-export default function ProductDetails(product: IProduct) {
+function ProductDetails(product: IProduct) {
   const [openModal, setModalOpen] = useState(false);
 
   return (
@@ -221,3 +221,5 @@ export default function ProductDetails(product: IProduct) {
     </div>
   );
 }
+
+export default memo(ProductDetails);

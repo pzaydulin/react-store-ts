@@ -1,6 +1,7 @@
 import ProductDetails from "@app/components/ProductDetails";
 import { useGetProductById } from "@app/data-access/product/hooks/useProducts";
 import { useDocumentTitle } from "@app/shared/hooks/useDocumentTitle";
+import { memo } from "react";
 import { useParams } from "react-router-dom";
 
 const ProductPage = () => {
@@ -31,4 +32,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default memo(ProductPage);

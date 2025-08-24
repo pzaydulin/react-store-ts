@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { memo, PropsWithChildren } from "react";
 
 interface ToolTipProps extends PropsWithChildren {
   text?: string;
@@ -17,4 +17,4 @@ const ToolTip: React.FC<ToolTipProps> = ({ children, text }) => {
   );
 };
 
-export default ToolTip;
+export default memo(ToolTip);

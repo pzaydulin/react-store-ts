@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { CartItem } from "@app/core/models/cart";
 import { apiCart } from "@app/data-access/cart/apiCart";
 import { useAuth } from "@app/core/contexts/AuthContext";
 
-interface CartContextType {
-  cart: CartItem[];
+interface CartActions {
   addToCart: (productId: number, quantity?: number) => void;
   removeFromCart: (productId: number) => void;
   clearCart: () => void;
 }
 
-const CartContext = React.createContext<CartContextType | undefined>(undefined);
+// --- Contexts ---
+const CartStateContext = React.createContext<CartItem[] | undefined>(undefined);
+const CartActionsContext = React.createContext<CartActions | undefined>(
+  undefined
+);
 
 export const CartProvider: React.FC<React.PropsWithChildren> = ({
   children,
@@ -20,10 +23,12 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({
     apiCart.getLocalCart()
   );
 
+  // save cart to localStorage on change
   React.useEffect(() => {
     apiCart.saveLocalCart(cart);
   }, [cart]);
 
+  // synchronize cart when user logs in
   React.useEffect(() => {
     if (isAuthenticated && user) {
       (async () => {
@@ -35,7 +40,8 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({
     }
   }, [isAuthenticated, user]);
 
-  const addToCart = (productId: number, quantity: number = 1) => {
+  // methods
+  const addToCart = useCallback((productId: number, quantity: number = 1) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find(
         (item) => item.productId === productId
@@ -50,32 +56,51 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({
         return [...prevCart, { productId, quantity }];
       }
     });
-  };
+  }, []);
 
-  const removeFromCart = (productId: number) => {
+  const removeFromCart = useCallback((productId: number) => {
     setCart((prevCart) =>
       prevCart.filter((item) => item.productId !== productId)
     );
-  };
+  }, []);
 
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     setCart([]);
     apiCart.clearLocalCart();
-  };
+  }, []);
+
+  // memoized actions
+  const actions = useMemo(
+    () => ({
+      addToCart,
+      removeFromCart,
+      clearCart,
+    }),
+    [addToCart, removeFromCart, clearCart]
+  );
 
   return (
-    <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, clearCart }}
-    >
-      {children}
-    </CartContext.Provider>
+    <CartStateContext.Provider value={cart}>
+      <CartActionsContext.Provider value={actions}>
+        {children}
+      </CartActionsContext.Provider>
+    </CartStateContext.Provider>
   );
 };
 
-export const useCart = () => {
-  const context = React.useContext(CartContext);
-  if (!context) {
-    throw new Error("useCart must be used within CartProvider");
+// --- hooks ---
+export const useCartState = () => {
+  const context = React.useContext(CartStateContext);
+  if (context === undefined) {
+    throw new Error("useCartState must be used within CartProvider");
+  }
+  return context;
+};
+
+export const useCartActions = () => {
+  const context = React.useContext(CartActionsContext);
+  if (context === undefined) {
+    throw new Error("useCartActions must be used within CartProvider");
   }
   return context;
 };
