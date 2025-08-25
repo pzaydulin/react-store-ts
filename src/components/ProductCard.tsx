@@ -194,7 +194,7 @@ function ProductCard(
             </p>
 
             <button
-              onClick={() => addToCart(product.id)}
+              onClick={() => addToCart(product.id, 1, product.price)}
               type="button"
               className="inline-flex items-center justify-center rounded-md text-sm font-medium  disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary_foreground hover:bg-primary/80 active:bg-primary h-10 px-4 py-2"
             >
@@ -215,7 +215,7 @@ function ProductCard(
                   d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
                 />
               </svg>
-              Add to cart[test]
+              Add to cart
             </button>
           </div>
         </div>

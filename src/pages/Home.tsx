@@ -40,7 +40,9 @@ const HomePage: React.FC = () => {
               <NavLink to="/products">Browse Products</NavLink>
             </button>
             <button className="px-6 py-2 rounded-lg bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 ">
-              <NavLink to="http://github.com">View on Github</NavLink>
+              <NavLink to="https://github.com/pzaydulin/react-store-ts">
+                View on Github
+              </NavLink>
             </button>
           </div>
         </div>

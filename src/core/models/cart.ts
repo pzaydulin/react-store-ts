@@ -8,4 +8,5 @@ export interface ICart {
 export interface CartItem {
   productId: number;
   quantity: number;
+  price?: number;
 }

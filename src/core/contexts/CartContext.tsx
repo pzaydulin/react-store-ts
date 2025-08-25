@@ -4,7 +4,7 @@ import { apiCart } from "@app/data-access/cart/apiCart";
 import { useAuth } from "@app/core/contexts/AuthContext";
 
 interface CartActions {
-  addToCart: (productId: number, quantity?: number) => void;
+  addToCart: (productId: number, quantity?: number, price?: number) => void;
   removeFromCart: (productId: number) => void;
   clearCart: () => void;
 }
@@ -41,22 +41,29 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({
   }, [isAuthenticated, user]);
 
   // methods
-  const addToCart = useCallback((productId: number, quantity: number = 1) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find(
-        (item) => item.productId === productId
-      );
-      if (existingItem) {
-        return prevCart.map((item) =>
-          item.productId === productId
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
+  const addToCart = useCallback(
+    (productId: number, quantity: number = 1, price?: number) => {
+      setCart((prevCart) => {
+        const existingItem = prevCart.find(
+          (item) => item.productId === productId
         );
-      } else {
-        return [...prevCart, { productId, quantity }];
-      }
-    });
-  }, []);
+        if (existingItem) {
+          return prevCart.map((item) =>
+            item.productId === productId
+              ? {
+                  ...item,
+                  quantity: item.quantity + quantity,
+                  price: price ?? item.price,
+                }
+              : item
+          );
+        } else {
+          return [...prevCart, { productId, quantity, price }];
+        }
+      });
+    },
+    []
+  );
 
   const removeFromCart = useCallback((productId: number) => {
     setCart((prevCart) =>

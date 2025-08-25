@@ -32,8 +32,6 @@ export function useProductsByCategory(category: string) {
 }
 
 export function useGetProductById(id: number) {
-  console.log("useGetProductById called with id:", id);
-
   return useQuery<ProductResponseDTO>({
     queryKey: ["products", "product", id],
     queryFn: () => apiProduct.getById(id),

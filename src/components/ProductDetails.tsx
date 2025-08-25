@@ -6,9 +6,11 @@ import { memo, useState } from "react";
 import { ShareProductLink } from "./ShareProductLink";
 import { NavigationPath } from "@app/core/constants/navigation";
 import ToolTip from "@app/shared/components/ToolTip";
+import { useCartActions } from "@app/core/contexts/CartContext";
 
 function ProductDetails(product: IProduct) {
   const [openModal, setModalOpen] = useState(false);
+  const { addToCart } = useCartActions();
 
   return (
     <div className="flex flex-col lg:flex-row w-auto items-start p-6">
@@ -184,6 +186,7 @@ function ProductDetails(product: IProduct) {
           </p>
 
           <button
+            onClick={() => addToCart(product.id, 1, product.price)}
             type="button"
             className="inline-flex whitespace-nowrap items-center justify-center rounded-md text-sm font-medium  disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary_foreground hover:bg-primary/80 active:bg-primary h-10 px-4 py-2"
           >
